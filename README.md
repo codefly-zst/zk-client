@@ -32,6 +32,14 @@ zookeeper客户端，基于zkclient实现的功能封装，对于zookeeper节点
 
 客户端可以通过实现IZkConfigHandler来提供自己的注册信息，及信息变化后的回调处理
 
+public interface IZkConfigHandler {
+	
+	Map<String,Properties> loadConfig();
+	
+	void handleDataChange(String key,Properties prop);
+}
+
+
 # Master-Slae模式
 通过配置enableMaster,可以启用master选举，在启用master选举后，zkClientManager创建过程即开始竞争选举。
 
@@ -39,12 +47,31 @@ zookeeper客户端，基于zkclient实现的功能封装，对于zookeeper节点
 
 同样对于回调，也可能通过实现IMasterElectCallBack来处理业务中的回调后处理。
 
-public interface IZkConfigHandler {
-	
-	Map<String,Properties> loadConfig();
-	
-	void handleDataChange(String key,Properties prop);
+public interface IMasterElectCallBack {
+
+	/**
+	 * master节点变化时的回调处理器
+	 * 
+	 * @param isMaster       当前节点是否为Master节点
+	 * @param masterJsonInfo master节点信息
+	 * @param localJsonInfo  当前节点信息
+	 * @param nodeMap        所有节点列表
+	 * @return
+	 */
+	Object handleMasterDelete(boolean isMaster, String masterJsonInfo, String localJsonInfo, Map<String, String> nodeMap);
+
+	/**
+	 * 节点列表变化时的回调处理器
+	 * 
+	 * @param isMaster       当前节点是否为Master节点
+	 * @param masterJsonInfo master节点信息
+	 * @param localJsonInfo  当前节点信息
+	 * @param nodeMap        所有节点列表
+	 * @return
+	 */
+	Object handleChildChange(boolean isMaster, String masterJsonInfo, String localJsonInfo, Map<String, String> nodeMap);
 }
+
 
 # 分布式锁
 对于分布式锁，支持类似公平锁与非公平锁两种方式，及阻塞与非阻塞两种方式。
