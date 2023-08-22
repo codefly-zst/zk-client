@@ -4,7 +4,7 @@ zookeeper客户端，基于zkclient实现的功能封装，对于zookeeper节点
 # 使用指南
 
 # 初始化zkconfig实例。
-在未指定chrootPath情况下，默认情况下以groupName+appName作为命令空间，groupName通常是你所在部门或所在组的名称，appName通常代表你的应用程序名称。 
+在未指定chrootPath情况下，默认情况下以groupName+appName作为命令空间，groupName通常是你所在部门或所在组的名称，appName通常代表你的应用程序名称。  
 
  对于权限认证采用用户名/密码方式，以groupName+appName为用户名。
  
