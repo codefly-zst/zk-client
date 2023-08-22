@@ -107,7 +107,7 @@ public interface IMasterElectCallBack {
 		}
   
 # zkClient重启
-当底层zkClient因未知异常而终止时，客户端可以进行重启操作，该方法将重新初始化底层zkClient
+当底层zkClient因未知异常而终止时，客户端可以进行重启操作，该方法将重新初始化底层zkClient 
 
 zkClientManager.restart()。
 
